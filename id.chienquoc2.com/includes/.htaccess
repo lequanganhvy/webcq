@@ -1,0 +1,3 @@
+deny from all
+Allow from 146.196.65.160
+Allow from 14.231.228.162

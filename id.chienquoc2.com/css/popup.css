@@ -1,0 +1,83 @@
+h1, h2, h3 {
+	font-weight: normal;
+}
+h1 {
+	font-size: 2em;
+}
+img {
+	border: none;
+}
+#hideshow {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	z-index: 1000;
+}
+#fade {
+	background: #000; 
+	position: fixed; 
+	width: 100%;
+	height: 100%;
+	filter:alpha(opacity=80);
+	opacity: .80;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)"; /*--IE 8 Transparency--*/
+	left: 0;
+	z-index: 10;
+}
+.popup_block {
+	background: #ddd;
+	padding: 10px 20px;
+	border: 10px solid #fff;
+	float: left;
+	width: 560px;
+	position: fixed;
+	top: 30%;
+	left: 45%;
+	margin: 0 0 0 -250px;
+	z-index: 100;
+
+}
+.popup_block .popup {
+	float: left;
+	background: #fff;
+	margin: 10px 0;
+	padding: 10px;
+	border: 1px solid #bbb;
+}
+.popup img.cntrl {
+	position: absolute;
+	right: -20px;
+	top: -20px;
+}
+
+/*--Making IE6 Understand Fixed Positioning--*/
+
+*html #fade {
+	position: absolute;
+	top:expression(eval(document.compatMode &&
+	document.compatMode=='CSS1Compat') ?
+	documentElement.scrollTop : document.body.scrollTop);
+}
+
+*html .popup_block {
+	position: absolute;
+	top:expression(eval(document.compatMode &&
+	document.compatMode=='CSS1Compat') ?
+	documentElement.scrollTop
+	+((documentElement.clientHeight-this.clientHeight)/2)
+	: document.body.scrollTop
+	+((document.body.clientHeight-this.clientHeight)/2));
+	
+	left:expression(eval(document.compatMode &&
+	document.compatMode=='CSS1Compat') ?
+	documentElement.scrollLeft 
+	+ (document.body.clientWidth /2 ) 
+	: document.body.scrollLeft 
+	+ (document.body.offsetWidth /2 ));
+}
+
+/*--IE 6 PNG Fix--*/
+
+img{ behavior: url(iepngfix.htc) }

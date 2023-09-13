@@ -1,0 +1,6 @@
+Options -Indexes
+
+deny from all
+allow from 118.70.109.110
+allow from 146.196.65.160
+allow from 14.231.228.162

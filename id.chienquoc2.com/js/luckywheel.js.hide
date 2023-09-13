@@ -1,0 +1,50 @@
+var spinResult = null;
+var spinProcess = false;
+var clicks = 0;
+$(document).ready(function() {
+	$('#spin').click(function() {
+		if (spinProcess == true) {
+			return;
+		}
+		spinProcess = true;
+		$.ajax({
+			url: "luckywheel.php",
+			type: "GET",
+			cache: false,
+			async: false,
+			data: {
+				server: $("#type").val()
+			},
+			success: function(result) {
+				spinResult = JSON.parse(result);
+			}
+		});
+		if (spinResult.errorMsg != undefined) {
+			spinProcess = false;
+			alert(spinResult.errorMsg);
+			return;
+		}
+		clicks++;
+		var newDegree = spinResult.degree * clicks;
+		var extraDegree = Math.floor(spinResult.extraDegree);
+		var totalDegree = newDegree + extraDegree;
+		$('#wheel .sec').each(function() {
+			var c = 0;
+			var n = 700;
+			var interval = setInterval(function() {
+				c++;
+				if (c === n) {
+					clearInterval(interval);
+				}
+				if (c >= n && spinProcess == true) {
+					spinProcess = false;
+					alert(spinResult.resultMsg);
+					window.location = '?page=vongquaymayman&server=' + $("#type").val();
+				}
+			}, 10);
+			$('#inner-wheel').css({
+				'transform': 'rotate(' + totalDegree + 'deg)'
+			});
+		});
+	});
+});
